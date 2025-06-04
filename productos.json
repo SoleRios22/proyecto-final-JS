@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "nombre": "Nueces",
+    "categoria": "Frutos secos",
+    "precio": 12000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Almendras",
+    "categoria": "Frutos secos",
+    "precio": 17000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "Aritos frutados",
+    "categoria": "Cereales",
+    "precio": 5000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "Almohaditas chocolate",
+    "categoria": "Cereales",
+    "precio": 4000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  },
+  {
+    "id": 5,
+    "nombre": "Harina de arroz",
+    "categoria": "Harinas",
+    "precio": 5000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  },
+  {
+    "id": 6,
+    "nombre": "Lentejas",
+    "categoria": "Legumbres",
+    "precio": 2000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  },
+  {
+    "id": 7,
+    "nombre": "Arroz Yamani",
+    "categoria": "Legumbres",
+    "precio": 8000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  },
+  {
+    "id": 8,
+    "nombre": "Harina de coco",
+    "categoria": "Harinas",
+    "precio": 15000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  },
+  {
+    "id": 9,
+    "nombre": "Te verde",
+    "categoria": "Infusiones",
+    "precio": 10000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  },
+  {
+    "id": 10,
+    "nombre": "Oregano",
+    "categoria": "Condimentos",
+    "precio": 1000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  },
+  {
+    "id": 11,
+    "nombre": "Pimienta",
+    "categoria": "Condimentos",
+    "precio": 1000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  },
+  {
+    "id": 12,
+    "nombre": "Curcuma",
+    "categoria": "Condimentos",
+    "precio": 3000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  },
+  {
+    "id": 13,
+    "nombre": "Premezcla para pizza",
+    "categoria": "Sin Tacc",
+    "precio": 5000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  },
+  {
+    "id": 14,
+    "nombre": "Magnesio",
+    "categoria": "Suplementos",
+    "precio": 20000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  },
+  {
+    "id": 15,
+    "nombre": "Cacao amargo",
+    "categoria": "Reposteria",
+    "precio": 10000,
+    "descripcion": "Natural sin azúcar",
+    "imagen": "https://i.blogs.es/75a169/istock-483979720-1-1-/1366_2000.jpg"
+  }
+]

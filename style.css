@@ -1,0 +1,100 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.navbar {
+  background-color: #48744c;
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand {
+  color: #48744c !important;
+}
+
+.navbar .nav-link:hover {
+  color: #c9e265 !important;
+}
+
+.btn-outline-primary {
+  border-color: #48744c;
+  color: #48744c;
+}
+
+.btn-outline-primary:hover {
+  background-color: #48744c;
+  color: #ffffff;
+}
+
+.btn-success {
+  background-color: #48744c;
+  border-color: #48744c;
+}
+
+.btn-success:hover {
+  background-color: #3b5f3d;
+  border-color: #3b5f3d;
+}
+
+.btn-danger {
+  background-color: #c9e265;
+  color: #000000;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #b0cc58;
+  color: #000000;
+}
+
+.card {
+  border: 1px solid #48744c;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card .card-title {
+  color: #48744c;
+  font-weight: bold;
+}
+
+.card .card-text {
+  color: #000000;
+}
+
+.footer {
+  background-color: #48744c;
+  color: #ffffff;
+  padding: 2rem;
+}
+
+.footer h5 {
+  color: #c9e265;
+}
+
+.footer a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #c9e265;
+  text-decoration: underline;
+}
+
+.active-category {
+  background-color: #48744c;
+  color: #ffffff;
+}
+
+#resumen-carrito h4,
+#resumen-carrito h5 {
+  color: #48744c;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus {
+  border-color: #c9e265;
+  box-shadow: 0 0 5px #c9e265;
+  outline: none;
+}
