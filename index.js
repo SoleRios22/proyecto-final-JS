@@ -143,6 +143,8 @@ function finalizarCompra() {
 function actualizarCarrito() {
   document.getElementById('cart-count').innerText = Object.values(carrito).reduce((a, b) => a + b, 0);
   guardarCarrito();
+  document.getElementById('boton-carrito-cantidad').textContent = Object.values(carrito).reduce((a, b) => a + b, 0);
+
 }
 
 function guardarCarrito() {
@@ -220,13 +222,30 @@ function configurarNavegacion() {
     verCarrito();
   });
 
-   document.getElementById('buscador').addEventListener('input', () => {
-  const texto = document.getElementById('buscador').value.toLowerCase();
-  const resultado = productosFiltrados.filter(p =>
-    p.nombre.toLowerCase().includes(texto) ||
-    p.descripcion.toLowerCase().includes(texto)
-  );
-  mostrarProductos(resultado);
+  const inputBuscador = document.getElementById('buscador');
+  const btnLimpiar = document.getElementById('btn-limpiar');
+
+  inputBuscador.addEventListener('input', () => {
+    const texto = inputBuscador.value.toLowerCase();
+
+  // Mostrar u ocultar el botón de limpiar
+    if (texto.length > 0) {
+      btnLimpiar.classList.remove('d-none');
+    } else {
+      btnLimpiar.classList.add('d-none');
+    }
+
+    const resultado = productosFiltrados.filter(p =>
+      p.nombre.toLowerCase().includes(texto) ||
+      p.descripcion.toLowerCase().includes(texto)
+    );
+    mostrarProductos(resultado);
+});
+
+btnLimpiar.addEventListener('click', () => {
+  inputBuscador.value = '';
+  btnLimpiar.classList.add('d-none');
+  mostrarProductos(productosFiltrados);
 });
 
 }
@@ -235,6 +254,23 @@ function verFavoritos() {
   mostrarProductos(productosDisponibles.filter(p => favoritos.has(p.nombre)));
 }
 
-function verCarrito() {
-  mostrarProductos(productosDisponibles.filter(p => carrito[p.nombre]), true);
+ function verCarrito() {
+  const contenido = document.getElementById('contenido-modal-carrito');
+  contenido.innerHTML = mostrarResumenCarrito();
+
+  const modalElement = document.getElementById('modalCarrito');
+  const modal = new bootstrap.Modal(modalElement, {
+    backdrop: false
+  });
+
+  modal.show();
+
+  modalElement.addEventListener('hidden.bs.modal', () => {
+    actualizarCarrito();
+    mostrarProductos(productosFiltrados); 
+  }, { once: true });
 }
+
+document.getElementById('boton-carrito').addEventListener('click', verCarrito);
+
+
