@@ -8,20 +8,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<!-- SweetAlert2 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-<!-- SweetAlert2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="style.css">
 
-
 </head>
+
 <body>
-    <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+   <header>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Doña Rios</a>
+
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <img src="./assets/Icono.png" alt="Doña Rios" height="40" class="me-2">
+         
+        </a>
+    
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"  aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -69,12 +74,18 @@
     <div class="container-fluid text-center">
       <div class="row">
         <div class="col">
-           <h1>Tienda online "Doña Rios"</h1>
+           <h2>Bienvenidos a Almacén Saludable "Doña Rios"</h2>
+          <p class="lead">Tu tienda online de confianza para productos naturales y saludables.</p>
         </div>
-        <div class="col">
-            <a href="#" class="me-2">Facebook</a>
-            <a href="#">Instagram</a>
+        <div class="col text-end">
+          <a href="https://www.facebook.com" target="_blank" class="me-3 social-icon">
+            <i class="bi bi-facebook fs-2"></i>
+          </a>
+          <a href="https://www.instagram.com" target="_blank" class="social-icon">
+            <i class="bi bi-instagram fs-2"></i>
+          </a>
         </div>
+
       </div>
     </div>
   <button id="boton-carrito" class="btn btn-success position-fixed d-flex align-items-center" style="bottom: 20px; right: 20px; z-index: 1050;">
@@ -88,99 +99,98 @@
           <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-2 col-md-4"><!--categorias de productos-->
-                    <h2>Categorias</h2>                    
+                    <h3>Categorías</h3>                    
                     <div class="btn-group-vertical w-100" id="categorias">
                      
                     </div>
                 </div>
 
                <div class="col-lg-10 col-md-8 " ><!--productos-->
-                  <h2>Productos</h2>
-                  <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 row-cols-sm-2 row-cols-xl-5 row-cols-xxl-6 g-4" id="lista-productos"></div>
+                  <h3>Productos</h3>
+                  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-sm-2 row-cols-xl-5 row-cols-xxl-6 g-4" id="lista-productos"></div>
                  <div id="resumen-carrito" class="mt-4"></div>
                  
                
             </div>
         </div>
 
-    </main>
-<!-- Modal del Carrito -->
-<div class="modal fade" id="modalCarrito" tabindex="-1" aria-labelledby="modalCarritoLabel" aria-hidden="true">
- <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down modal-lg modal-dialog-scrollable">
+    
 
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalCarritoLabel">Resumen del Carrito</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        <div id="contenido-modal-carrito"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal Finalizar Compra -->
-<div class="modal fade" id="modalFinalizarCompra" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down modal-lg modal-dialog-scrollable">
-
-    <form class="modal-content" id="form-finalizar-compra">
-      <div class="modal-header">
-        <h5 class="modal-title">Finalizar Compra</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        <div id="detalle-carrito"></div>
-
-        <hr>
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label for="nombre" class="form-label">Nombre completo</label>
-            <input type="text" class="form-control" id="nombre" required>
+    <!-- Modal del Carrito -->
+    <div class="modal fade" id="modalCarrito" tabindex="-1" aria-labelledby="modalCarritoLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalCarritoLabel">Resumen del Carrito</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
           </div>
-          <div class="col-md-6">
-            <label for="telefono" class="form-label">Teléfono</label>
-            <input type="tel" class="form-control" id="telefono" required>
+          <div class="modal-body">
+            <div id="contenido-modal-carrito"></div>
           </div>
-          <div class="col-md-6">
-            <label for="email" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control" id="email" required>
-          </div>
-          <div class="col-md-6">
-            <label for="metodo-pago" class="form-label">Método de pago</label>
-            <select class="form-select" id="metodo-pago" required>
-              <option value="efectivo">Efectivo</option>
-              <option value="credito">Tarjeta de crédito</option>
-              <option value="debito">Tarjeta de débito</option>
-              <option value="transferencia">Transferencia</option>
-              <option value="billetera">Billetera virtual</option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label for="entrega" class="form-label">Tipo de entrega</label>
-            <select class="form-select" id="entrega" required>
-              <option value="retiro">Retiro en punto de venta</option>
-              <option value="envio">Envío</option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label for="contacto" class="form-label">Contacto por</label>
-            <select class="form-select" id="contacto" required>
-              <option value="whatsapp">WhatsApp</option>
-              <option value="email">Email</option>
-            </select>
-          </div>
-          <div class="col-12">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="guardar-carrito">
-              <label class="form-check-label" for="guardar-carrito">
-                Guardar productos para una compra futura
-              </label>
-            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Modal Finalizar Compra -->
+    <div class="modal fade" id="modalFinalizarCompra" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down modal-lg modal-dialog-scrollable">
+        <form class="modal-content" id="form-finalizar-compra">
+          <div class="modal-header">
+            <h5 class="modal-title">Finalizar Compra</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div id="detalle-carrito"></div>
+            <hr>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="nombre" class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" id="nombre" required>
+              </div>
+              <div class="col-md-6">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="telefono" required>
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="email" required>
+              </div>
+              <div class="col-md-6">
+                <label for="metodo-pago" class="form-label">Método de pago</label>
+                  <select class="form-select" id="metodo-pago" required>
+                    <option value="efectivo">Efectivo</option>
+                    <option value="credito">Tarjeta de crédito</option>
+                    <option value="debito">Tarjeta de débito</option>
+                    <option value="transferencia">Transferencia</option>
+                    <option value="billetera">Billetera virtual</option>
+                  </select>
+              </div>
+              <div class="col-md-6">
+                <label for="entrega" class="form-label">Tipo de entrega</label>
+                <select class="form-select" id="entrega" required>
+                  <option value="retiro">Retiro en punto de venta</option>
+                  <option value="envio">Envío</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="contacto" class="form-label">Contacto por</label>
+                <select class="form-select" id="contacto" required>
+                  <option value="whatsapp">WhatsApp</option>
+                  <option value="email">Email</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="guardar-carrito">
+                  <label class="form-check-label" for="guardar-carrito">
+                    Guardar productos para una compra futura
+                  </label>
+                </div>
+              </div>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-success">Confirmar pedido</button>
@@ -228,13 +238,15 @@
   </div>
 </div>
 
-   <footer class="bg-light text-dark mt-5 py-4">
+</main>
+
+<footer class="bg-light text-dark mt-5 py-4">
   <div class="container">
     <div class="row">
       <!-- Columna 1: Información -->
       <div class="col-md-6">
         <h5>Sobre Nosotros</h5>
-        <p>Tienda Saludable es tu lugar de confianza para productos naturales, frescos y orgánicos. Promovemos una vida saludable con alimentos de calidad.</p>
+        <p>Almacén Saludable "Doña Ríos" es tu lugar de confianza para productos naturales, frescos y orgánicos. Promovemos una vida saludable con alimentos de calidad.</p>
       </div>
 
       <!-- Columna 2: Contacto -->

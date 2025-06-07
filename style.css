@@ -4,8 +4,12 @@ body {
   color: #000000;
    height: auto;
   overflow-y: auto;
+  padding-top: 80px;
 }
 
+h2{
+  color: #48744c;
+}
 
 .navbar {
   background-color: #48744c;
@@ -114,4 +118,22 @@ input[type="text"]:focus {
     padding: 1rem;
   }
 
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+.social-icon {
+  color: #000000; /* Color inicial (negro) */
+  transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #48744c; /* Color verde de tu marca al hacer hover */
 }
