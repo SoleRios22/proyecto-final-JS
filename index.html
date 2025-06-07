@@ -28,18 +28,25 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page"  id="nav-inicio" href="#">Inicio</a>
+              <a class="nav-link active" id="nav-inicio" href="#">
+                <i class="bi bi-house-door-fill me-1"></i> Inicio
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link"  id="nav-favoritos" href="#">Favoritos</a>
+              <a class="nav-link" id="nav-favoritos" href="#">
+                <i class="bi bi-heart-fill me-1"></i> Favoritos
+              </a>
             </li>
-              <li class="nav-item"><a class="nav-link" href="#" id="nav-carrito">Carrito (<span id="cart-count">0</span>)</a></li>
-              <li class="nav-item">
-               <a class="nav-link" href="#" id="nav-carrito-guardado">Carrito Guardado</a>
-              </li>
-
-
-          
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="nav-carrito">
+                <i class="bi bi-cart-fill me-1"></i> Carrito (<span id="cart-count">0</span>)
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="nav-carrito-guardado">
+                <i class="bi bi-bookmark-fill me-1"></i> Carrito Guardado
+              </a>
+            </li>
           </ul>
 
           <div class="d-flex justify-content-center justify-content-lg-end mb-3 px-2">
@@ -80,16 +87,16 @@
     <main>
           <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-2 col-md-6"><!--categorias de productos-->
+                <div class="col-lg-2 col-md-4"><!--categorias de productos-->
                     <h2>Categorias</h2>                    
                     <div class="btn-group-vertical w-100" id="categorias">
                      
                     </div>
                 </div>
 
-               <div class="col-lg-10 col-md-6" ><!--productos-->
+               <div class="col-lg-10 col-md-8 " ><!--productos-->
                   <h2>Productos</h2>
-                  <div class="row row-cols-1 row-cols-md-3 g-4" id="lista-productos"></div>
+                  <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 row-cols-sm-2 row-cols-xl-5 row-cols-xxl-6 g-4" id="lista-productos"></div>
                  <div id="resumen-carrito" class="mt-4"></div>
                  
                
@@ -97,35 +104,10 @@
         </div>
 
     </main>
-
-   <footer class="bg-light text-dark mt-5 py-4">
-  <div class="container">
-    <div class="row">
-      <!-- Columna 1: Información -->
-      <div class="col-md-6">
-        <h5>Sobre Nosotros</h5>
-        <p>Tienda Saludable es tu lugar de confianza para productos naturales, frescos y orgánicos. Promovemos una vida saludable con alimentos de calidad.</p>
-      </div>
-
-      <!-- Columna 2: Contacto -->
-      <div class="col-md-6">
-        <h5>Contacto</h5>
-        <ul class="list-unstyled">
-          <li>Email: contacto@tiendasaludable.com</li>
-          <li>Teléfono: +54 358 4315332</li>
-          <li>Dirección: Calle Ficticia 123, Córdoba, Argentina</li>
-        </ul>
-      </div>
-    </div>
-    <div class="text-center mt-3">
-      <small>&copy; 2025 Tienda Saludable. Todos los derechos reservados.</small>
-    </div>
-  </div>
-</footer>
-
 <!-- Modal del Carrito -->
 <div class="modal fade" id="modalCarrito" tabindex="-1" aria-labelledby="modalCarritoLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+ <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down modal-lg modal-dialog-scrollable">
+
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modalCarritoLabel">Resumen del Carrito</h5>
@@ -142,7 +124,8 @@
 </div>
 <!-- Modal Finalizar Compra -->
 <div class="modal fade" id="modalFinalizarCompra" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down modal-lg modal-dialog-scrollable">
+
     <form class="modal-content" id="form-finalizar-compra">
       <div class="modal-header">
         <h5 class="modal-title">Finalizar Compra</h5>
@@ -224,6 +207,52 @@
     </div>
   </div>
 </div>
+
+<!-- Modal de Favoritos -->
+<div class="modal fade" id="modalFavoritos" tabindex="-1" aria-labelledby="modalFavoritosLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down modal-lg modal-dialog-scrollable">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalFavoritosLabel">Mis Favoritos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" id="contenido-modal-favoritos">
+        <!-- Aquí se cargan dinámicamente los productos favoritos -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="btn-vaciar-favoritos">Vaciar Favoritos</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+   <footer class="bg-light text-dark mt-5 py-4">
+  <div class="container">
+    <div class="row">
+      <!-- Columna 1: Información -->
+      <div class="col-md-6">
+        <h5>Sobre Nosotros</h5>
+        <p>Tienda Saludable es tu lugar de confianza para productos naturales, frescos y orgánicos. Promovemos una vida saludable con alimentos de calidad.</p>
+      </div>
+
+      <!-- Columna 2: Contacto -->
+      <div class="col-md-6">
+        <h5>Contacto</h5>
+        <ul class="list-unstyled">
+          <li>Email: contacto@tiendasaludable.com</li>
+          <li>Teléfono: +54 358 4315332</li>
+          <li>Dirección: Calle Ficticia 123, Córdoba, Argentina</li>
+        </ul>
+      </div>
+    </div>
+    <div class="text-center mt-3">
+      <small>&copy; 2025 Tienda Saludable. Todos los derechos reservados.</small>
+    </div>
+  </div>
+</footer>
+
 
 
 

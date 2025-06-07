@@ -2,7 +2,10 @@ body {
   font-family: Arial, sans-serif;
   background-color: #ffffff;
   color: #000000;
+   height: auto;
+  overflow-y: auto;
 }
+
 
 .navbar {
   background-color: #48744c;
@@ -97,4 +100,18 @@ input[type="text"]:focus {
   border-color: #c9e265;
   box-shadow: 0 0 5px #c9e265;
   outline: none;
+}
+.card-img-top {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+@media (max-width: 576px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  .card .card-body {
+    padding: 1rem;
+  }
+
 }
