@@ -127,18 +127,161 @@ function vaciarCarrito() {
 }
 
 function finalizarCompra() {
-  let mensaje = "Hola, quiero realizar la siguiente compra:%0A";
-  let total = 0;
-  for (const nombre in carrito) {
-    const p = productosDisponibles.find(p => p.nombre === nombre);
-    const cantidad = carrito[nombre];
-    const subtotal = cantidad * p.precio;
-    mensaje += `- ${nombre} x${cantidad} = $${subtotal.toFixed(2)}%0A`;
-    total += subtotal;
-  }
-  mensaje += `%0ATotal: $${total.toFixed(2)}%0A%0AGracias!`;
-  window.open(`https://wa.me/543584315332?text=${mensaje}`, '_blank');
+   const modal = new bootstrap.Modal(document.getElementById('modalFinalizarCompra'),{backdrop:false});
+  mostrarDetalleEnModal();
+  modal.show();
+  
 }
+
+function mostrarDetalleEnModal() {
+  const detalle = document.getElementById('detalle-carrito');
+  const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
+  const productos = productosDisponibles || [];
+
+  let total = 0;
+  let html = '<ul class="list-group mb-3">';
+  for (const nombre in carrito) {
+    const p = productos.find(prod => prod.nombre === nombre);
+    const cantidad = carrito[nombre];
+    const subtotal = p.precio * cantidad;
+    total += subtotal;
+    html += `<li class="list-group-item d-flex justify-content-between">
+               <span>${p.nombre} x${cantidad}</span>
+               <strong>$${subtotal.toFixed(2)}</strong>
+             </li>`;
+  }
+  html += `</ul><p class="fw-bold">Total: $${total.toFixed(2)}</p>`;
+  detalle.innerHTML = html;
+}
+
+
+/*document.getElementById('form-finalizar-compra').addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const nombre = document.getElementById('nombre').value;
+  const email = document.getElementById('email').value;
+  const telefono = document.getElementById('telefono').value;
+  const metodoPago = document.getElementById('metodo-pago').value;
+  const entrega = document.getElementById('entrega').value;
+  const contacto = document.getElementById('contacto').value;
+  const guardar = document.getElementById('guardar-carrito').checked;
+
+  const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
+  const productos = productosDisponibles || [];
+
+  let total = 0;
+  let mensaje = `🛒 *Nuevo Pedido*\n`;
+  mensaje += `👤 Nombre: ${nombre}\n📞 Teléfono: ${telefono}\n📧 Email: ${email}\n`;
+  mensaje += `💳 Pago: ${metodoPago}\n🚚 Entrega: ${entrega}\n\n`;
+
+  for (const nombre in carrito) {
+    const prod = productos.find(p => p.nombre === nombre);
+    const cantidad = carrito[nombre];
+    const subtotal = cantidad * prod.precio;
+    total += subtotal;
+    mensaje += `• ${nombre} x${cantidad} = $${subtotal.toFixed(2)}\n`;
+  }
+
+  mensaje += `\n💰 *Total: $${total.toFixed(2)}*\n`;
+
+  if (guardar) {
+    localStorage.setItem('carritoGuardado', JSON.stringify(carrito));
+  } else {
+    localStorage.removeItem('carritoGuardado');
+  }
+
+  for (const nombre in carrito) delete carrito[nombre];
+  actualizarCarrito();
+
+  if (contacto === 'whatsapp') {
+    const url = `https://wa.me/543584315332?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
+  } else {
+    const mailto = `mailto:tuemail@dominio.com?subject=Nuevo Pedido&body=${encodeURIComponent(mensaje)}`;
+    window.open(mailto, '_blank');
+  }
+
+  const modalEl = bootstrap.Modal.getInstance(document.getElementById('modalFinalizarCompra'));
+  modalEl.hide();
+  mostrarProductos(productosFiltrados);
+});*/
+document.getElementById('form-finalizar-compra').addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const nombre = document.getElementById('nombre').value;
+  const email = document.getElementById('email').value;
+  const telefono = document.getElementById('telefono').value;
+  const metodoPago = document.getElementById('metodo-pago').value;
+  const entrega = document.getElementById('entrega').value;
+  const contacto = document.getElementById('contacto').value;
+  const guardar = document.getElementById('guardar-carrito').checked;
+
+  const carritoLS = JSON.parse(localStorage.getItem('carrito')) || {};
+  const productos = productosDisponibles || [];
+
+  let total = 0;
+  let mensaje = `🛒 *Nuevo Pedido*\n`;
+  mensaje += `👤 Nombre: ${nombre}\n📞 Teléfono: ${telefono}\n📧 Email: ${email}\n`;
+  mensaje += `💳 Pago: ${metodoPago}\n🚚 Entrega: ${entrega}\n\n`;
+
+  for (const nombre in carritoLS) {
+    const prod = productos.find(p => p.nombre === nombre);
+    const cantidad = carritoLS[nombre];
+    const subtotal = cantidad * prod.precio;
+    total += subtotal;
+    mensaje += `• ${nombre} x${cantidad} = $${subtotal.toFixed(2)}\n`;
+  }
+
+  mensaje += `\n💰 *Total: $${total.toFixed(2)}*\n`;
+
+  if (guardar) {
+    localStorage.setItem('carritoGuardado', JSON.stringify(carritoLS));
+  } else {
+    localStorage.removeItem('carritoGuardado');
+  }
+
+  
+Swal.fire({
+  icon: 'success',
+  title: 'Pedido realizado con éxito',
+  text: 'Redirigiendo a tu aplicación de mensajería...',
+  showConfirmButton: false,
+  timer: 2500,
+  willClose: () => {
+    if (contacto === 'whatsapp') {
+      const url = `https://wa.me/543584315332?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+    } else {
+      const mailto = `mailto:tuemail@dominio.com?subject=Nuevo Pedido&body=${encodeURIComponent(mensaje)}`;
+      window.open(mailto, '_blank');
+    }
+  }
+});
+
+  // Vaciar carrito y actualizar
+  for (const nombre in carrito) delete carrito[nombre];
+  actualizarCarrito();
+  localStorage.removeItem('carrito'); // limpia también localStorage
+
+  // Cerrar modal de compra y carrito
+  const modalCompra = bootstrap.Modal.getInstance(document.getElementById('modalFinalizarCompra'));
+  const modalCarrito = bootstrap.Modal.getInstance(document.getElementById('modalCarrito'));
+  if (modalCompra) modalCompra.hide();
+  if (modalCarrito) modalCarrito.hide();
+
+  mostrarProductos(productosFiltrados);
+
+  // Limpiar formulario
+  document.getElementById('nombre').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('telefono').value = '';
+  document.getElementById('metodo-pago').selectedIndex = 0;
+  document.getElementById('entrega').selectedIndex = 0;
+  document.getElementById('contacto').selectedIndex = 0;
+  document.getElementById('guardar-carrito').checked = false;
+
+  
+});
 
 function actualizarCarrito() {
   document.getElementById('cart-count').innerText = Object.values(carrito).reduce((a, b) => a + b, 0);
@@ -248,6 +391,78 @@ btnLimpiar.addEventListener('click', () => {
   mostrarProductos(productosFiltrados);
 });
 
+document.getElementById('nav-carrito-guardado').addEventListener('click', e => {
+  e.preventDefault();
+  mostrarCarritoGuardado();
+});
+
+function mostrarCarritoGuardado() {
+  const guardado = JSON.parse(localStorage.getItem('carritoGuardado'));
+  const contenedor = document.getElementById('contenido-carrito-guardado');
+
+  if (!guardado || Object.keys(guardado).length === 0) {
+    contenedor.innerHTML = '<p class="text-muted">No hay ningún carrito guardado.</p>';
+    document.getElementById('btn-restaurar-carrito').disabled = true;
+    document.getElementById('btn-eliminar-carrito-guardado').disabled = true;
+  } else {
+    let total = 0;
+    let html = '<ul class="list-group">';
+    for (const nombre in guardado) {
+      const prod = productosDisponibles.find(p => p.nombre === nombre);
+      const cantidad = guardado[nombre];
+      const subtotal = cantidad * prod.precio;
+      total += subtotal;
+      html += `<li class="list-group-item d-flex justify-content-between">
+        <div><strong>${nombre}</strong><br>Cantidad: ${cantidad} | Subtotal: $${subtotal.toFixed(2)}</div>
+      </li>`;
+    }
+    html += `</ul><p class="mt-3"><strong>Total: $${total.toFixed(2)}</strong></p>`;
+    contenedor.innerHTML = html;
+    document.getElementById('btn-restaurar-carrito').disabled = false;
+    document.getElementById('btn-eliminar-carrito-guardado').disabled = false;
+  }
+
+  new bootstrap.Modal(document.getElementById('modalCarritoGuardado'),{backdrop:false}).show();
+}
+
+
+document.getElementById('btn-restaurar-carrito').addEventListener('click', () => {
+  const guardado = JSON.parse(localStorage.getItem('carritoGuardado'));
+  if (!guardado) return;
+
+  Swal.fire({
+    title: '¿Reemplazar carrito actual?',
+    text: 'Esto eliminará los productos actuales y restaurará el carrito guardado.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, reemplazar',
+    cancelButtonText: 'Cancelar',
+    reverseButtons: true
+  }).then(result => {
+    if (result.isConfirmed) {
+      for (const nombre in carrito) delete carrito[nombre];
+      Object.assign(carrito, guardado);
+      actualizarCarrito();
+      mostrarProductos(productosFiltrados);
+      bootstrap.Modal.getInstance(document.getElementById('modalCarritoGuardado')).hide();
+
+      Swal.fire({
+        title: 'Carrito restaurado',
+        text: 'Tu carrito fue restaurado con éxito.',
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: false
+      });
+    }
+  });
+});
+
+
+document.getElementById('btn-eliminar-carrito-guardado').addEventListener('click', () => {
+  localStorage.removeItem('carritoGuardado');
+  mostrarCarritoGuardado(); // refresca el contenido del modal
+});
+
 }
 
 function verFavoritos() {
@@ -272,5 +487,4 @@ function verFavoritos() {
 }
 
 document.getElementById('boton-carrito').addEventListener('click', verCarrito);
-
 
