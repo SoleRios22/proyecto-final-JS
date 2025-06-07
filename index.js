@@ -2,28 +2,48 @@ let productosDisponibles = [];
 let productosFiltrados = [];
 const carrito = {};
 const favoritos = new Set();
+let vistaActual = 'todos'; // 'todos', 'favoritos', 'carrito', etc.
+
 
 document.addEventListener('DOMContentLoaded', () => {
+  try{
   cargarFavoritos();
   cargarCarrito();
   cargarProductos();
   configurarNavegacion();
+  }catch(err){
+    console.error("Error al cargar la aplicación:", err);
+     Swal.fire({
+      icon: 'error',
+      title: 'Error al cargar la aplicación',
+      text: 'No se pudieron cargar los productos. Intenta nuevamente más tarde.',
+    });
+  }
 });
 
-function cargarProductos() {
-  fetch('./productos.json')
-    .then(res => res.json())
-    .then(data => {
-      productosDisponibles = data;
-      productosFiltrados = [...productosDisponibles];
-      generarCategorias();
-      actualizarCarrito();
-      mostrarProductos(productosDisponibles);
-    })
-    .catch(err => console.error("Error al cargar los productos:", err));
+
+async function cargarProductos() {
+  try {
+    const res = await fetch('./productos.json');
+    const data = await res.json();
+    productosDisponibles = data;
+    productosFiltrados = [...productosDisponibles];
+    generarCategorias();
+    actualizarCarrito();
+    mostrarProductos(productosDisponibles);
+  } catch (err) {
+    console.error("Error al cargar los productos:", err);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error al cargar productos',
+      text: 'No se pudieron cargar los productos. Intenta nuevamente más tarde.',
+    });
+  }
 }
 
+
 function mostrarProductos(lista, esCarrito = false) {
+  if (!esCarrito) vistaActual = 'productos';
   const contenedor = document.getElementById('lista-productos');
   contenedor.innerHTML = '';
 
@@ -123,6 +143,7 @@ function eliminarDelCarrito(nombre) {
 function vaciarCarrito() {
   for (const nombre in carrito) delete carrito[nombre];
   actualizarCarrito();
+    vistaActual = 'carrito';
   verCarrito();
 }
 
@@ -134,6 +155,7 @@ function finalizarCompra() {
 }
 
 function mostrarDetalleEnModal() {
+  try{
   const detalle = document.getElementById('detalle-carrito');
   const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
   const productos = productosDisponibles || [];
@@ -151,62 +173,22 @@ function mostrarDetalleEnModal() {
              </li>`;
   }
   html += `</ul><p class="fw-bold">Total: $${total.toFixed(2)}</p>`;
-  detalle.innerHTML = html;
+  detalle.innerHTML = html;}
+  catch(err){
+     console.error("Error al mostrar el detalle del carrito:", err);
+     Swal.fire({
+      icon: 'error',
+      title: 'Error al cargar detalle del carrito',
+      text: 'No se pudo cargar el detalle del carrito. Intenta nuevamente más tarde.',
+    });
+  }
 }
 
 
-/*document.getElementById('form-finalizar-compra').addEventListener('submit', (e) => {
-  e.preventDefault();
 
-  const nombre = document.getElementById('nombre').value;
-  const email = document.getElementById('email').value;
-  const telefono = document.getElementById('telefono').value;
-  const metodoPago = document.getElementById('metodo-pago').value;
-  const entrega = document.getElementById('entrega').value;
-  const contacto = document.getElementById('contacto').value;
-  const guardar = document.getElementById('guardar-carrito').checked;
-
-  const carrito = JSON.parse(localStorage.getItem('carrito')) || {};
-  const productos = productosDisponibles || [];
-
-  let total = 0;
-  let mensaje = `🛒 *Nuevo Pedido*\n`;
-  mensaje += `👤 Nombre: ${nombre}\n📞 Teléfono: ${telefono}\n📧 Email: ${email}\n`;
-  mensaje += `💳 Pago: ${metodoPago}\n🚚 Entrega: ${entrega}\n\n`;
-
-  for (const nombre in carrito) {
-    const prod = productos.find(p => p.nombre === nombre);
-    const cantidad = carrito[nombre];
-    const subtotal = cantidad * prod.precio;
-    total += subtotal;
-    mensaje += `• ${nombre} x${cantidad} = $${subtotal.toFixed(2)}\n`;
-  }
-
-  mensaje += `\n💰 *Total: $${total.toFixed(2)}*\n`;
-
-  if (guardar) {
-    localStorage.setItem('carritoGuardado', JSON.stringify(carrito));
-  } else {
-    localStorage.removeItem('carritoGuardado');
-  }
-
-  for (const nombre in carrito) delete carrito[nombre];
-  actualizarCarrito();
-
-  if (contacto === 'whatsapp') {
-    const url = `https://wa.me/543584315332?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, '_blank');
-  } else {
-    const mailto = `mailto:tuemail@dominio.com?subject=Nuevo Pedido&body=${encodeURIComponent(mensaje)}`;
-    window.open(mailto, '_blank');
-  }
-
-  const modalEl = bootstrap.Modal.getInstance(document.getElementById('modalFinalizarCompra'));
-  modalEl.hide();
-  mostrarProductos(productosFiltrados);
-});*/
 document.getElementById('form-finalizar-compra').addEventListener('submit', (e) => {
   e.preventDefault();
+  try{
 
   const nombre = document.getElementById('nombre').value;
   const email = document.getElementById('email').value;
@@ -279,8 +261,14 @@ Swal.fire({
   document.getElementById('entrega').selectedIndex = 0;
   document.getElementById('contacto').selectedIndex = 0;
   document.getElementById('guardar-carrito').checked = false;
-
-  
+  }catch(err){
+    console.error("Error al procesar la compra:", err);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error en el pedido',
+      text: 'Hubo un problema al finalizar la compra. Por favor, revisa los datos e intenta nuevamente.',
+    });
+  } 
 });
 
 function actualizarCarrito() {
@@ -294,28 +282,68 @@ function guardarCarrito() {
   localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
+
 function cargarCarrito() {
-  const data = localStorage.getItem('carrito');
-  if (data) Object.assign(carrito, JSON.parse(data));
+  try {
+    const data = localStorage.getItem('carrito');
+    if (data) Object.assign(carrito, JSON.parse(data));
+  } catch (err) {
+    console.error("Error al cargar el carrito:", err);
+    Swal.fire({
+      icon: 'warning',
+      title: 'Problema con el carrito',
+      text: 'No se pudo cargar el carrito guardado correctamente.',
+    });
+  }
 }
 
+
 function toggleFavorito(nombre) {
-  favoritos.has(nombre) ? favoritos.delete(nombre) : favoritos.add(nombre);
+  if (favoritos.has(nombre)) {
+    favoritos.delete(nombre);
+  } else {
+    favoritos.add(nombre);
+  }
   guardarFavoritos();
-  mostrarProductos(productosFiltrados);
+
+  // Refrescar la vista correspondiente
+ switch (vistaActual) {
+    case 'favoritos':
+      verFavoritos();
+      break;
+    case 'categoria':
+    case 'busqueda':
+    case 'todos':
+    case 'productos':
+      mostrarProductos(productosFiltrados);
+      break;
+    default:
+      mostrarProductos(productosDisponibles);
+  }
 }
+
 
 function guardarFavoritos() {
   localStorage.setItem('favoritos', JSON.stringify([...favoritos]));
 }
 
 function cargarFavoritos() {
+  try {
   const data = localStorage.getItem('favoritos');
   if (data) JSON.parse(data).forEach(nombre => favoritos.add(nombre));
+  }catch(err){
+    console.error("Error al cargar los favoritos:", err);
+     Swal.fire({
+      icon: 'error',
+      title: 'Error al cargar favorito',
+      text: 'No se pudieron cargar los productos favoritos. Intenta nuevamente más tarde.',
+    });
+  }
 }
 
 
 function filtrarProductos(categoria) {
+    vistaActual = 'categoria';
   productosFiltrados = categoria ? productosDisponibles.filter(p => p.categoria === categoria) : [...productosDisponibles];
   mostrarProductos(productosFiltrados);
 }
@@ -352,16 +380,19 @@ function marcarCategoriaSeleccionada(boton) {
 function configurarNavegacion() {
   document.getElementById('nav-inicio').addEventListener('click', e => {
     e.preventDefault();
+     vistaActual = 'todos';
     mostrarProductos(productosDisponibles);
   });
 
   document.getElementById('nav-favoritos').addEventListener('click', e => {
     e.preventDefault();
+      vistaActual = 'favoritos';
     verFavoritos();
   });
 
   document.getElementById('nav-carrito').addEventListener('click', e => {
     e.preventDefault();
+     vistaActual = 'carrito';
     verCarrito();
   });
 
@@ -370,6 +401,7 @@ function configurarNavegacion() {
 
   inputBuscador.addEventListener('input', () => {
     const texto = inputBuscador.value.toLowerCase();
+      vistaActual = 'busqueda';
 
   // Mostrar u ocultar el botón de limpiar
     if (texto.length > 0) {
@@ -387,6 +419,7 @@ function configurarNavegacion() {
 
 btnLimpiar.addEventListener('click', () => {
   inputBuscador.value = '';
+    vistaActual = 'todos';
   btnLimpiar.classList.add('d-none');
   mostrarProductos(productosFiltrados);
 });
@@ -466,6 +499,7 @@ document.getElementById('btn-eliminar-carrito-guardado').addEventListener('click
 }
 
 function verFavoritos() {
+  vistaActual = 'favoritos';
   mostrarProductos(productosDisponibles.filter(p => favoritos.has(p.nombre)));
 }
 
